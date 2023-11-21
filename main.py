@@ -7,7 +7,7 @@ def main():
     height = image.size[1]
 
     brightness_matrix = get_brightness_matrix(image, width, height)
-    # print_brightness_matrix(brightness_matrix)
+    print_brightness_matrix(brightness_matrix, width, height)
 
 
 def get_brightness_matrix(image, width, height):
@@ -23,10 +23,41 @@ def get_brightness_matrix(image, width, height):
 
     return matrix
 
-# def print_brightness_matrix(brightness_matrix):
-#     print("Brightness matrix for image:")
+def print_brightness_matrix(brightness_matrix, width, height):
+    print("Brightness matrix for image:")
 
-#     for i in range (3):
+    demo_matrix = []
+
+    for x in range (3):
+        row = []
+        for y in range (3):
+            row.append(str(brightness_matrix[x][y]))
+
+        row.append('...')
+
+        for x in range (3):
+            row.append(str(brightness_matrix[x][height - 1 - (2 - y)]))
+        
+        row_str = ' '.join(row)
+        demo_matrix.append(row_str)
+
+    demo_matrix.append('...')
+
+    for x in range (3):
+        row = []
+        for y in range (3):
+            row.append(str(brightness_matrix[width - 1 - (2 - x)][y]))
+
+        row.append('...')
+
+        for y in range (3):
+            row.append(str(brightness_matrix[width - 1 - (2 - x)][height - 1 - (2 - y)]))
+        
+        row_str = ' '.join(row)
+        demo_matrix.append(row_str)
+
+    for i in range(len(demo_matrix)):
+        print(f"[ {demo_matrix[i]} ]")
 
 
 def get_histogram_data():

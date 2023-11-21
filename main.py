@@ -1,13 +1,17 @@
 from PIL import Image
+import cv2
+import matplotlib.pyplot as plt
 
 def main():
     image = Image.open('./imgs-06/6.bmp')
+    cv2_image = cv2.imread('./imgs-06/6.bmp', 0)
 
     width = image.size[0]
     height = image.size[1]
 
     brightness_matrix = get_brightness_matrix(image, width, height)
     print_brightness_matrix(brightness_matrix, width, height)
+    print_histogram(cv2_image)
 
 
 def get_brightness_matrix(image, width, height):
@@ -24,7 +28,7 @@ def get_brightness_matrix(image, width, height):
     return matrix
 
 def print_brightness_matrix(brightness_matrix, width, height):
-    print("Brightness matrix for image:")
+    print('Brightness matrix for image:')
 
     demo_matrix = []
 
@@ -59,13 +63,14 @@ def print_brightness_matrix(brightness_matrix, width, height):
     for i in range(len(demo_matrix)):
         print(f"[ {demo_matrix[i]} ]")
 
+def print_histogram(cv2_image):
+    # matplotlib histogram
+    plt.hist(cv2_image.ravel(), 256, [0,256])
 
-def get_histogram_data():
-    im = Image.open('./imgs-06/6.bmp').convert('L')
-    h = im.histogram()
-    # Print histogram
-    for idx, val in enumerate(h):
-        print(idx,val)
+    plt.title('Histogram of image')
+    plt.xlabel('Pixel brightness')
+    plt.ylabel('Number of pixels')
+    plt.show()
 
 if __name__ == '__main__':
     main()

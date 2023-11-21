@@ -1,18 +1,22 @@
+import os
 from PIL import Image
 import cv2
 import matplotlib.pyplot as plt
 
-def main():
-    image = Image.open('./imgs-06/6.bmp')
-    cv2_image = cv2.imread('./imgs-06/6.bmp', 0)
+def main():    
+    images_folders = get_sorted_images()
 
-    width = image.size[0]
-    height = image.size[1]
+    for folder in images_folders:
+        for image_name in folder:
+            image = Image.open(image_name)
+            cv2_image = cv2.imread(image_name, 0)
 
-    brightness_matrix = get_brightness_matrix(image, width, height)
-    print_brightness_matrix(brightness_matrix, width, height)
-    print_histogram(cv2_image)
+            width = image.size[0]
+            height = image.size[1]
 
+            brightness_matrix = get_brightness_matrix(image, width, height)
+            print_brightness_matrix(brightness_matrix, width, height, image_name)
+            print_histogram(cv2_image, image_name)
 
 def get_brightness_matrix(image, width, height):
     pixels = image.load() # values of pixels of image
@@ -27,8 +31,8 @@ def get_brightness_matrix(image, width, height):
 
     return matrix
 
-def print_brightness_matrix(brightness_matrix, width, height):
-    print('Brightness matrix for image:')
+def print_brightness_matrix(brightness_matrix, width, height, image_name):
+    print(f"Brightness matrix for image: {image_name}")
 
     demo_matrix = []
 
@@ -62,15 +66,44 @@ def print_brightness_matrix(brightness_matrix, width, height):
 
     for i in range(len(demo_matrix)):
         print(f"[ {demo_matrix[i]} ]")
+    print()
 
-def print_histogram(cv2_image):
+def print_histogram(cv2_image, image_name):
     # matplotlib histogram
     plt.hist(cv2_image.ravel(), 256, [0,256])
 
-    plt.title('Histogram of image')
+    plt.title(f"Histogram of image {image_name}")
     plt.xlabel('Pixel brightness')
     plt.ylabel('Number of pixels')
     plt.show()
+
+def get_sorted_images():
+    sorted_images = []
+    folders_list = []
+
+    for item in os.listdir('.'):
+        if os.path.isdir(item) and 'imgs' in item:
+            folders_list.append(item)
+
+    for folder in folders_list:
+        sorted_folder = ["", "", "", "", ""]
+        files_list = os.listdir(f"./{folder}")
+
+        for file in files_list:
+            if not '%' in file:
+                sorted_folder[0] = f"./{folder}/{file}"
+            elif '100%' in file:
+                sorted_folder[1] = f"./{folder}/{file}"
+            elif '50%' in file:
+                sorted_folder[2] = f"./{folder}/{file}"
+            elif '10%' in file:
+                sorted_folder[3] = f"./{folder}/{file}"
+            elif '1%' in file:
+                sorted_folder[4] = f"./{folder}/{file}"
+
+        sorted_images.append(sorted_folder)
+
+    return sorted_images     
 
 if __name__ == '__main__':
     main()

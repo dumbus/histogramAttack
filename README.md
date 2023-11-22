@@ -48,14 +48,17 @@ python main.py
 - СО с долей вложения 0,1: `<название изображения>100%.<PNG | JPEG | PPM | GIF | TIFF | BMP>`
 - СО с долей вложения 0,01: `<название изображения>100%.<PNG | JPEG | PPM | GIF | TIFF | BMP>`
 
-Пример корректных данных: ![image](https://github.com/dumbus/histogramAttack/assets/79057837/40f96883-0b32-4afc-bebb-6f6e8f609df5)
+Пример корректных данных:  
+![image](https://github.com/dumbus/histogramAttack/assets/79057837/40f96883-0b32-4afc-bebb-6f6e8f609df5)
 
 ## Пример работы программы:
 
 Программа будет выводить матрицу яркостей и гистограмму для каждой отдельной картинки по очереди.
 
-Пример матрицы яркостей: ![image](https://github.com/dumbus/histogramAttack/assets/79057837/97ded278-4d04-4fa4-975c-d59103948743)
+Пример матрицы яркостей:  
+![image](https://github.com/dumbus/histogramAttack/assets/79057837/97ded278-4d04-4fa4-975c-d59103948743)
 
-Пример гистограммы: ![image](https://github.com/dumbus/histogramAttack/assets/79057837/fd5a10b5-65b2-4e76-b08a-1ab57a957213)
+Пример гистограммы:  
+![image](https://github.com/dumbus/histogramAttack/assets/79057837/fd5a10b5-65b2-4e76-b08a-1ab57a957213)
 
 После закрытия окна с гистограммой выведутся данные для следующей в очереди картинки.
